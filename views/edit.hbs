@@ -1,0 +1,85 @@
+<h1 class="display-2 py-3">edit / update page</h1>
+<table class="table">
+    <tr>
+        <th>_id</th>
+        <th>ubezpieczony</th>
+        <th>benzyna</th>
+        <th>uszkodzony</th>
+        <th>naped4x4</th>
+        <th></th>
+    </tr>
+    {{#each docs}}
+    {{#if this.editable}}
+    <tr>
+        <form method="post" id="edit_form">
+            <td>{{this._id}}</td>
+            <td>
+                <select class="form-select form-select-sm w-100" name="a">
+                    <option {{#when this.insured "TAK" }}selected{{/when}} value="TAK">TAK</option>
+                    <option {{#when this.insured "NIE" }}selected{{/when}} value="NIE">NIE</option>
+                    <option {{#when this.insured "BRAK" }}selected{{/when}} value="BRAK">BRAK DANYCH</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select form-select-sm w-100" name="b">
+                    <option {{#when this.gas "TAK" }}selected{{/when}} value="TAK">TAK</option>
+                    <option {{#when this.gas "NIE" }}selected{{/when}} value="NIE">NIE</option>
+                    <option {{#when this.gas "BRAK" }}selected{{/when}} value="BRAK">BRAK DANYCH</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select form-select-sm w-100" name="c">
+                    <option {{#when this.damage "TAK" }}selected{{/when}} value="TAK">TAK</option>
+                    <option {{#when this.damage "NIE" }}selected{{/when}} value="NIE">NIE</option>
+                    <option {{#when this.damage "BRAK" }}selected{{/when}} value="BRAK">BRAK DANYCH</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select form-select-sm w-100" name="d">
+                    <option {{#when this.boost "TAK" }}selected{{/when}} value="TAK">TAK</option>
+                    <option {{#when this.boost "NIE" }}selected{{/when}} value="NIE">NIE</option>
+                    <option {{#when this.boost "BRAK" }}selected{{/when}} value="BRAK">BRAK DANYCH</option>
+                </select>
+            </td>
+            <td>
+                <button id="git" class="btn btn-success px-1" formaction="/editCars" name="_id"
+                    value="{{this._id}}">UPDATE</button>
+                <button id="cancel" class="btn btn-danger px-1" formaction="/editCars">CANCEL</button>
+            </td>
+        </form>
+    </tr>
+    {{else}}
+    <tr>
+        <form method="get">
+            <td>{{this._id}}</td>
+            <td>{{this.insured}}</td>
+            <td>{{this.gas}}</td>
+            <td>{{this.damage}}</td>
+            <td>{{this.boost}}</td>
+            <td>
+                <button class="btn btn-secondary px-5" formaction="/editCars" name="_id"
+                    value="{{this._id}}">&nbsp;&nbsp;EDIT&nbsp;&nbsp;</button>
+            </td>
+        </form>
+    </tr>
+    {{/if}}
+    {{/each}}
+</table>
+
+<script>
+    let ok = false;
+    document.querySelector("#cancel").onclick = function () { ok = false }
+    document.querySelector("#git").onclick = function () { ok = true }
+
+    function logSubmit(event) {
+        if (ok == true) {
+            confirm("confirm update") ? null : form.submit()
+        }
+        else {
+            form.submit()
+        }
+    }
+
+    const form = document.querySelector("#edit_form");
+    form.addEventListener('submit', logSubmit)
+</script>

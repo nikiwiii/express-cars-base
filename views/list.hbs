@@ -1,0 +1,33 @@
+<h1 class="display-2 py-3">car list page</h1>
+<form method="get" id="table">
+    <table class="table">
+        <tr>
+            <th>_id</th>
+            <th>ubezpieczony</th>
+            <th>benzyna</th>
+            <th>uszkodzony</th>
+            <th>naped4x4</th>
+            <th></th>
+        </tr>
+        {{#each docs}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.insured}}</td>
+            <td>{{this.gas}}</td>
+            <td>{{this.damage}}</td>
+            <td>{{this.boost}}</td>
+            <td>
+                <button formaction="../carsList&id={{this._id}}" type="submit" class="btn btn-dark px-5">DELETE</button>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</form>
+<script type="text/javascript">
+    function logSubmit(event) {
+        confirm("confirm delete") ? form.submit() : null
+    }
+
+    const form = document.querySelector("#table");
+    form.addEventListener('submit', logSubmit)
+</script>
